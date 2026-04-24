@@ -4,25 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Опросник · Цифровая платформа для адвокатского бюро · РБ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
   :root {
-    --bg: #F7F6F2;
-    --surface: #FFFFFF;
-    --border: #E2E0D8;
-    --border-mid: #C8C5BB;
-    --text: #1A1916;
-    --text-muted: #6B6860;
-    --text-hint: #9E9C96;
-    --teal: #0F6E56; --teal-bg: #E1F5EE; --teal-border: #1D9E75;
-    --blue: #185FA5; --blue-bg: #E6F1FB; --blue-border: #378ADD;
-    --amber: #854F0B; --amber-bg: #FAEEDA; --amber-border: #BA7517;
-    --coral: #712B13; --coral-bg: #FAECE7; --coral-border: #D85A30;
-    --purple: #3C3489; --purple-bg: #EEEDFE; --purple-border: #7F77DD;
-    --radius: 10px;
-    --font: 'IBM Plex Sans', sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
+    --bg:        #0F1419;
+    --bg2:       #1A2332;
+    --surface:   #1E2D42;
+    --surface2:  #243347;
+    --border:    #334155;
+    --border2:   #3D4F66;
+    --text:      #E8EEF4;
+    --text-muted:#94A3B8;
+    --text-hint: #64748B;
+    --gold:      #D4A574;
+    --gold-dim:  rgba(212,165,116,0.12);
+    --gold-mid:  rgba(212,165,116,0.25);
+    --gold-glow: 0 0 24px rgba(212,165,116,0.18);
+    --blue-acc:  #1E3A5F;
+    --radius:    8px;
+    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,11 +32,13 @@
   body {
     font-family: var(--font);
     background: var(--bg);
+    background-image: linear-gradient(180deg, #0F1419 0%, #111B27 100%);
     color: var(--text);
     font-size: 14px;
     line-height: 1.6;
     min-height: 100vh;
-    padding: 2rem 1rem 4rem;
+    padding: 2rem 1rem 5rem;
+    -webkit-font-smoothing: antialiased;
   }
 
   .shell {
@@ -42,43 +46,55 @@
     margin: 0 auto;
   }
 
-  /* Header */
+  /* ── Header ──────────────────────────────── */
   .header {
-    background: var(--text);
-    color: #fff;
-    border-radius: var(--radius);
+    background: linear-gradient(135deg, #1A2332 0%, #243347 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 2rem 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     overflow: hidden;
   }
   .header::before {
     content: '';
     position: absolute;
-    right: -40px; top: -40px;
-    width: 200px; height: 200px;
+    right: -60px; top: -60px;
+    width: 220px; height: 220px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.04);
+    background: radial-gradient(circle, rgba(212,165,116,0.08) 0%, transparent 70%);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,165,116,0.3), transparent);
   }
   .header-tag {
     font-size: 11px;
-    font-family: var(--mono);
-    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+    color: var(--gold);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    opacity: 0.8;
   }
   .header h1 {
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 6px;
+    background: linear-gradient(135deg, #E8EEF4 0%, #D4A574 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .header p {
     font-size: 13px;
-    color: rgba(255,255,255,0.55);
+    color: var(--text-hint);
   }
 
-  /* Meta fields */
+  /* ── Meta card ───────────────────────────── */
   .meta-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -92,28 +108,32 @@
   .meta-field label {
     display: block;
     font-size: 11px;
-    font-family: var(--mono);
+    font-weight: 600;
     color: var(--text-hint);
     text-transform: uppercase;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.08em;
     margin-bottom: 5px;
   }
   .meta-field input {
     width: 100%;
-    padding: 7px 10px;
+    padding: 8px 12px;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: var(--font);
     font-size: 13px;
     color: var(--text);
-    background: var(--bg);
+    background: var(--bg2);
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .meta-field input:focus { outline: none; border-color: var(--teal-border); }
+  .meta-field input::placeholder { color: var(--text-hint); }
+  .meta-field input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,165,116,0.15);
+  }
 
-  /* Progress */
-  .progress-wrap {
-    margin-bottom: 1.5rem;
-  }
+  /* ── Progress ────────────────────────────── */
+  .progress-wrap { margin-bottom: 1.5rem; }
   .progress-bar {
     height: 3px;
     background: var(--border);
@@ -123,27 +143,31 @@
   }
   .progress-fill {
     height: 100%;
-    background: var(--teal);
+    background: linear-gradient(90deg, #D4A574, #E8C9A8);
     border-radius: 2px;
-    transition: width 0.3s;
+    transition: width 0.4s ease;
     width: 0%;
+    box-shadow: 0 0 8px rgba(212,165,116,0.5);
   }
   .progress-label {
     font-size: 11px;
-    font-family: var(--mono);
+    font-weight: 500;
     color: var(--text-hint);
+    letter-spacing: 0.02em;
   }
 
-  /* Section */
+  /* ── Section ─────────────────────────────── */
   .section {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 1rem;
+    margin-bottom: 8px;
     overflow: hidden;
+    transition: border-color 0.2s;
   }
+  .section:has(.section-body.open) { border-color: var(--border2); }
   .section-header {
-    padding: 14px 20px;
+    padding: 14px 18px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -152,95 +176,129 @@
     border-bottom: 1px solid transparent;
     transition: background 0.15s;
   }
-  .section-header:hover { background: var(--bg); }
+  .section-header:hover { background: var(--surface2); }
   .section-header.open { border-bottom-color: var(--border); }
   .section-num {
     width: 28px; height: 28px;
-    border-radius: 50%;
+    border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 600;
-    font-family: var(--mono);
+    font-size: 12px; font-weight: 700;
+    background: var(--gold-dim);
+    color: var(--gold);
+    border: 1px solid rgba(212,165,116,0.2);
     flex-shrink: 0;
   }
-  .section-title { font-size: 14px; font-weight: 600; flex: 1; }
-  .section-arrow {
-    font-size: 10px;
-    color: var(--text-hint);
-    transition: transform 0.2s;
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    color: var(--text);
   }
-  .section-arrow.open { transform: rotate(90deg); }
+  .section-arrow {
+    font-size: 9px;
+    color: var(--text-hint);
+    transition: transform 0.2s ease;
+  }
+  .section-arrow.open { transform: rotate(90deg); color: var(--gold); }
   .section-body { display: none; padding: 20px; }
   .section-body.open { display: block; }
 
-  /* Question */
+  /* ── Question ────────────────────────────── */
   .q { margin-bottom: 1.25rem; }
   .q:last-child { margin-bottom: 0; }
   .q-num {
-    font-size: 11px;
-    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
     color: var(--text-hint);
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
   .q-label {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     line-height: 1.5;
   }
   .q-hint {
     font-size: 11px;
     color: var(--text-hint);
-    margin-bottom: 7px;
+    margin-bottom: 8px;
     font-style: italic;
   }
   .law-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     font-size: 10px;
-    font-family: var(--mono);
-    background: var(--blue-bg);
-    color: var(--blue);
-    border: 1px solid var(--blue-border);
+    font-weight: 500;
+    background: rgba(212,165,116,0.08);
+    color: var(--gold);
+    border: 1px solid rgba(212,165,116,0.25);
     border-radius: 4px;
-    padding: 2px 8px;
-    margin-bottom: 8px;
+    padding: 3px 8px;
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
   }
-  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.25rem 0;
+    opacity: 0.6;
+  }
 
-  /* Options */
+  /* ── Opts (pill buttons) ─────────────────── */
   .opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
   .opt {
-    padding: 5px 12px;
-    border: 1px solid var(--border-mid);
+    padding: 5px 13px;
+    border: 1px solid var(--border2);
     border-radius: 20px;
     font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
     color: var(--text-muted);
-    background: var(--surface);
-    transition: all 0.12s;
+    background: var(--bg2);
+    transition: all 0.15s ease;
     line-height: 1.4;
   }
-  .opt:hover { background: var(--bg); border-color: var(--text-hint); }
-  .sel-teal { background: var(--teal-bg) !important; border-color: var(--teal-border) !important; color: var(--teal) !important; }
-  .sel-blue { background: var(--blue-bg) !important; border-color: var(--blue-border) !important; color: var(--blue) !important; }
-  .sel-amber { background: var(--amber-bg) !important; border-color: var(--amber-border) !important; color: var(--amber) !important; }
-  .sel-coral { background: var(--coral-bg) !important; border-color: var(--coral-border) !important; color: var(--coral) !important; }
-  .sel-purple { background: var(--purple-bg) !important; border-color: var(--purple-border) !important; color: var(--purple) !important; }
+  .opt:hover {
+    background: var(--surface2);
+    border-color: var(--gold);
+    color: var(--text);
+  }
 
-  /* Text inputs */
+  /* Selected states — all unified to gold on dark theme */
+  .sel-teal,
+  .sel-blue,
+  .sel-amber,
+  .sel-coral,
+  .sel-purple {
+    background: var(--gold-dim) !important;
+    border-color: var(--gold) !important;
+    color: var(--gold) !important;
+    box-shadow: 0 0 0 1px rgba(212,165,116,0.15) !important;
+  }
+
+  /* ── Text inputs ─────────────────────────── */
   .ta, .ti {
     width: 100%;
-    padding: 8px 10px;
+    padding: 9px 12px;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: var(--font);
     font-size: 13px;
     color: var(--text);
-    background: var(--bg);
+    background: var(--bg2);
     line-height: 1.5;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .ta { resize: vertical; min-height: 56px; }
-  .ta:focus, .ti:focus { outline: none; border-color: var(--teal-border); }
+  .ta { resize: vertical; min-height: 60px; }
+  .ta::placeholder, .ti::placeholder { color: var(--text-hint); }
+  .ta:focus, .ti:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,165,116,0.12);
+  }
   .other-input {
     margin-top: 6px;
     font-size: 12px;
@@ -251,132 +309,165 @@
   }
   .other-input input {
     flex: 1;
-    padding: 5px 8px;
-    border: 1px dashed var(--border-mid);
+    padding: 5px 10px;
+    border: 1px dashed var(--border2);
     border-radius: 6px;
     font-family: var(--font);
     font-size: 12px;
-    background: var(--surface);
+    background: var(--bg2);
     color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .other-input input:focus { outline: none; border-color: var(--teal-border); }
+  .other-input input::placeholder { color: var(--text-hint); }
+  .other-input input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,165,116,0.12);
+  }
 
-  /* Matrix / table */
-  .matrix-wrap { overflow-x: auto; margin-top: 4px; }
+  /* ── Matrix / table ──────────────────────── */
+  .matrix-wrap { overflow-x: auto; margin-top: 8px; border-radius: 6px; border: 1px solid var(--border); }
   table.matrix {
     width: 100%;
     border-collapse: collapse;
     font-size: 12px;
   }
   .matrix th {
-    font-weight: 500;
-    font-family: var(--mono);
-    font-size: 11px;
+    font-weight: 600;
+    font-size: 10px;
     color: var(--text-hint);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 6px 10px;
+    letter-spacing: 0.07em;
+    padding: 9px 12px;
     border-bottom: 1px solid var(--border);
+    background: var(--bg2);
     text-align: left;
     white-space: nowrap;
   }
   .matrix td {
-    padding: 7px 10px;
+    padding: 8px 12px;
     border-bottom: 1px solid var(--border);
-    color: var(--text);
+    color: var(--text-muted);
     vertical-align: middle;
+    font-size: 12.5px;
   }
   .matrix td:not(:first-child) { text-align: center; }
   .matrix tr:last-child td { border-bottom: none; }
-  .matrix tr:hover td { background: var(--bg); }
+  .matrix tr:hover td { background: var(--surface2); }
   input[type=checkbox], input[type=radio] {
     width: 15px; height: 15px;
     cursor: pointer;
-    accent-color: var(--teal);
+    accent-color: var(--gold);
   }
 
-  /* Scenario grid */
+  /* ── Scenario grid ───────────────────────── */
   .sg-wrap {
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
   }
   .sg-head {
     display: grid;
-    grid-template-columns: 1fr 80px 80px;
-    background: var(--bg);
+    grid-template-columns: 1fr 90px 110px;
+    background: var(--bg2);
     border-bottom: 1px solid var(--border);
   }
   .sg-head span {
-    padding: 7px 12px;
-    font-size: 11px;
-    font-family: var(--mono);
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 600;
     color: var(--text-hint);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
   }
   .sg-head span:not(:first-child) { text-align: center; }
   .sg-row {
     display: grid;
-    grid-template-columns: 1fr 80px 80px;
+    grid-template-columns: 1fr 90px 110px;
     border-bottom: 1px solid var(--border);
   }
   .sg-row:last-child { border-bottom: none; }
-  .sg-row:hover { background: var(--bg); }
+  .sg-row:hover { background: var(--surface2); }
   .sg-cell {
-    padding: 8px 12px;
-    font-size: 12px;
-    color: var(--text);
+    padding: 9px 12px;
+    font-size: 12.5px;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
   }
   .sg-cell:not(:first-child) { justify-content: center; }
 
-  /* Footer */
+  /* ── Footer ──────────────────────────────── */
   .footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
-    padding-top: 1.5rem;
+    padding: 1.5rem 0 0;
     border-top: 1px solid var(--border);
     gap: 12px;
     flex-wrap: wrap;
   }
-  .footer-note { font-size: 12px; color: var(--text-hint); font-family: var(--mono); }
+  .footer-note {
+    font-size: 12px;
+    color: var(--text-hint);
+    font-weight: 500;
+  }
   .btn {
-    padding: 9px 20px;
-    border-radius: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius);
     font-family: var(--font);
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    border: 1px solid var(--border-mid);
+    border: 1px solid var(--border2);
     background: var(--surface);
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+  }
+  .btn:hover {
+    background: var(--surface2);
     color: var(--text);
-    transition: all 0.15s;
+    border-color: var(--border2);
   }
-  .btn:hover { background: var(--bg); }
+  .btn-gold {
+    background: var(--gold-dim);
+    color: var(--gold);
+    border-color: rgba(212,165,116,0.35);
+  }
+  .btn-gold:hover {
+    background: rgba(212,165,116,0.2);
+    color: var(--gold);
+    box-shadow: var(--gold-glow);
+  }
   .btn-primary {
-    background: var(--text);
-    color: #fff;
-    border-color: var(--text);
+    background: var(--gold);
+    color: #0F1419;
+    border-color: var(--gold);
+    font-weight: 600;
   }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-teal {
-    background: var(--teal-bg);
-    color: var(--teal);
-    border-color: var(--teal-border);
+  .btn-primary:hover {
+    background: #E8C9A8;
+    border-color: #E8C9A8;
+    box-shadow: var(--gold-glow);
   }
-  .btn-teal:hover { background: #9FE1CB; }
 
+  /* ── Print ───────────────────────────────── */
   @media print {
-    body { background: #fff; padding: 0; }
+    body { background: #fff; color: #111; padding: 0; }
     .shell { max-width: 100%; }
     .section-body { display: block !important; }
     .footer { display: none; }
-    .header { background: #1A1916 !important; -webkit-print-color-adjust: exact; }
+    .header { background: #1A2332 !important; -webkit-print-color-adjust: exact; color-adjust: exact; }
+    .section, .meta-card { border-color: #ccc !important; }
+    .opt { border-color: #aaa !important; color: #333 !important; }
   }
+
+  /* ── Scrollbar ───────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-hint); }
 </style>
 </head>
 <body>
@@ -406,7 +497,7 @@
     <span class="footer-note" id="footer-count">0 ответов заполнено</span>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn" onclick="expandAll()">Раскрыть все</button>
-      <button class="btn btn-teal" onclick="exportTxt()">Скопировать итог</button>
+      <button class="btn btn-gold" onclick="exportTxt()">Скопировать итог</button>
       <button class="btn btn-primary" onclick="window.print()">Печать / PDF</button>
     </div>
   </div>
@@ -416,7 +507,7 @@
 <script>
 const SECTIONS = [
   {
-    id:'goals', num:1, title:'Цели и приоритеты', color:'#E1F5EE', tc:'#085041',
+    id:'goals', num:1, title:'Цели и приоритеты',
     qs:[
       {id:'goals_p1', label:'1.1. Приоритетные задачи 1 этапа', hint:'Выберите все нужные', multi:true, color:'teal',
        opts:['Защищённый ИИ чат','Поиск по нормативно-правовым актам','Мониторинг и дайджест новостей','Поиск по патентам и товарным знакам','Анализ документов ИИ','База знаний бюро','Другое:'], hasOther:true},
@@ -427,7 +518,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'users', num:2, title:'Пользователи и доступ', color:'#EEEDFE', tc:'#3C3489',
+    id:'users', num:2, title:'Пользователи и доступ',
     qs:[
       {id:'roles', label:'2.1. Роли в системе', hint:'Выберите все нужные', multi:true, color:'purple',
        opts:['Управляющий партнёр','Адвокат','Юрист-помощник','Делопроизводитель','Бухгалтер','Системный администратор','Внешний консультант','Другое:'], hasOther:true},
@@ -438,7 +529,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'sources', num:3, title:'Источники и интеграции', color:'#E6F1FB', tc:'#0C447C',
+    id:'sources', num:3, title:'Источники и интеграции',
     qs:[
       {id:'legal_db', label:'3.1. Нормативно-правовые базы и интеграции',
        hint:'Доступные API-интеграции для подключения', multi:true, color:'blue',
@@ -455,7 +546,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'docs', num:4, title:'Работа с документами', color:'#FAEEDA', tc:'#633806',
+    id:'docs', num:4, title:'Работа с документами',
     qs:[
       {id:'doc_types', label:'4.1. Типы документов в работе бюро', multi:true, color:'amber',
        opts:['Договоры','Претензии и исковые заявления','Правовые заключения','Переписка с клиентами','Доверенности','Заявки на ИС (НЦИС)','Бухгалтерские документы','Внутренние шаблоны','Судебные решения','Другое:'], hasOther:true},
@@ -468,19 +559,19 @@ const SECTIONS = [
     ]
   },
   {
-    id:'datamap', num:5, title:'Карта данных', color:'#FAECE7', tc:'#712B13',
+    id:'datamap', num:5, title:'Карта данных',
     type:'matrix_data'
   },
   {
-    id:'scenarios', num:6, title:'Сценарии использования', color:'#E1F5EE', tc:'#085041',
+    id:'scenarios', num:6, title:'Сценарии использования',
     type:'scenarios'
   },
   {
-    id:'matrix', num:7, title:'Матрица передачи данных', color:'#FAECE7', tc:'#712B13',
+    id:'matrix', num:7, title:'Матрица передачи данных',
     type:'matrix_transfer'
   },
   {
-    id:'ai_reqs', num:8, title:'Требования к ИИ', color:'#EEEDFE', tc:'#3C3489',
+    id:'ai_reqs', num:8, title:'Требования к ИИ',
     qs:[
       {id:'ai_can', label:'8.1. Что ИИ должен уметь делать?', multi:true, color:'purple',
        opts:['Отвечать по внутренней базе документов','Искать по внешним источникам','Делать краткие выводы и резюме','Готовить проекты документов','Объяснять нормы простым языком','Делать сравнительный анализ','Выявлять риски в документах','Оценивать новизну изобретений','Другое:'], hasOther:true},
@@ -498,7 +589,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'security', num:9, title:'Безопасность и инфраструктура', color:'#FAECE7', tc:'#712B13',
+    id:'security', num:9, title:'Безопасность и инфраструктура',
     qs:[
       {id:'security_must', label:'9.1. Обязательные меры безопасности',
        law:'Закон РБ «О персональных данных» № 99-З · Постановление ОАЦ № 21',
@@ -514,7 +605,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'deploy', num:10, title:'Внедрение', color:'#E6F1FB', tc:'#0C447C',
+    id:'deploy', num:10, title:'Внедрение',
     qs:[
       {id:'launch_format', label:'10.1. Формат запуска', multi:false, color:'blue',
        opts:['Пилот 5–10 пользователей','Сразу на всю команду','Поэтапно по модулям']},
@@ -523,7 +614,7 @@ const SECTIONS = [
     ]
   },
   {
-    id:'summary', num:11, title:'Итог от клиента', color:'#E1F5EE', tc:'#085041',
+    id:'summary', num:11, title:'Итог от клиента',
     qs:[
       {id:'result_main', label:'11.1. Главный ожидаемый результат проекта', type:'textarea',
        placeholder:'Что изменится в работе бюро через год после внедрения?'},
@@ -600,14 +691,14 @@ function countAnswered() {
 
 function buildSections() {
   const cont = document.getElementById('sections-container');
-  SECTIONS.forEach((sec, si) => {
+  SECTIONS.forEach(sec => {
     const div = document.createElement('div');
     div.className = 'section';
     div.id = 'sec-' + sec.id;
 
     const hdr = document.createElement('div');
     hdr.className = 'section-header';
-    hdr.innerHTML = `<div class="section-num" style="background:${sec.color};color:${sec.tc}">${sec.num}</div><div class="section-title">${sec.title}</div><span class="section-arrow" id="arr-${sec.id}">▶</span>`;
+    hdr.innerHTML = `<div class="section-num">${sec.num}</div><div class="section-title">${sec.title}</div><span class="section-arrow" id="arr-${sec.id}">▶</span>`;
     hdr.addEventListener('click', () => toggleSection(sec.id));
 
     const body = document.createElement('div');
@@ -637,7 +728,7 @@ function buildQuestions(qs) {
     html += `<div class="q-num">${q.id.replace(/_/g,' ')}</div>`;
     if (q.law) html += `<div class="law-badge">${q.law}</div><br>`;
     html += `<div class="q-label">${q.label}</div>`;
-    if (q.hint) html += `<div class="q-hint">${q.hint}${q.multi ? '' : ''}</div>`;
+    if (q.hint) html += `<div class="q-hint">${q.hint}</div>`;
 
     if (q.type === 'textarea') {
       html += `<textarea class="ta" data-k="${q.id}" placeholder="${q.placeholder||''}"></textarea>`;
@@ -775,7 +866,7 @@ function exportTxt() {
   });
 
   navigator.clipboard.writeText(txt).then(() => {
-    const btn = document.querySelector('.btn-teal');
+    const btn = document.querySelector('.btn-gold');
     const orig = btn.textContent;
     btn.textContent = 'Скопировано ✓';
     setTimeout(() => btn.textContent = orig, 2000);
