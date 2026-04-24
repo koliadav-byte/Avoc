@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Опросник · Цифровая платформа для адвокатского бюро · РБ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --border: #E2E0D8;
+    --border-mid: #C8C5BB;
+    --text: #1A1916;
+    --text-muted: #6B6860;
+    --text-hint: #9E9C96;
+    --teal: #0F6E56; --teal-bg: #E1F5EE; --teal-border: #1D9E75;
+    --blue: #185FA5; --blue-bg: #E6F1FB; --blue-border: #378ADD;
+    --amber: #854F0B; --amber-bg: #FAEEDA; --amber-border: #BA7517;
+    --coral: #712B13; --coral-bg: #FAECE7; --coral-border: #D85A30;
+    --purple: #3C3489; --purple-bg: #EEEDFE; --purple-border: #7F77DD;
+    --radius: 10px;
+    --font: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .shell {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    background: var(--text);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* Meta fields */
+  .meta-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .meta-field label {
+    display: block;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-hint);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 5px;
+  }
+  .meta-field input {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+  }
+  .meta-field input:focus { outline: none; border-color: var(--teal-border); }
+
+  /* Progress */
+  .progress-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 2px;
+    transition: width 0.3s;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-hint);
+  }
+
+  /* Section */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.15s;
+  }
+  .section-header:hover { background: var(--bg); }
+  .section-header.open { border-bottom-color: var(--border); }
+  .section-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+    font-family: var(--mono);
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .section-arrow {
+    font-size: 10px;
+    color: var(--text-hint);
+    transition: transform 0.2s;
+  }
+  .section-arrow.open { transform: rotate(90deg); }
+  .section-body { display: none; padding: 20px; }
+  .section-body.open { display: block; }
+
+  /* Question */
+  .q { margin-bottom: 1.25rem; }
+  .q:last-child { margin-bottom: 0; }
+  .q-num {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-hint);
+    margin-bottom: 3px;
+  }
+  .q-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .q-hint {
+    font-size: 11px;
+    color: var(--text-hint);
+    margin-bottom: 7px;
+    font-style: italic;
+  }
+  .law-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--mono);
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+  }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* Options */
+  .opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .opt {
+    padding: 5px 12px;
+    border: 1px solid var(--border-mid);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--text-muted);
+    background: var(--surface);
+    transition: all 0.12s;
+    line-height: 1.4;
+  }
+  .opt:hover { background: var(--bg); border-color: var(--text-hint); }
+  .sel-teal { background: var(--teal-bg) !important; border-color: var(--teal-border) !important; color: var(--teal) !important; }
+  .sel-blue { background: var(--blue-bg) !important; border-color: var(--blue-border) !important; color: var(--blue) !important; }
+  .sel-amber { background: var(--amber-bg) !important; border-color: var(--amber-border) !important; color: var(--amber) !important; }
+  .sel-coral { background: var(--coral-bg) !important; border-color: var(--coral-border) !important; color: var(--coral) !important; }
+  .sel-purple { background: var(--purple-bg) !important; border-color: var(--purple-border) !important; color: var(--purple) !important; }
+
+  /* Text inputs */
+  .ta, .ti {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+  }
+  .ta { resize: vertical; min-height: 56px; }
+  .ta:focus, .ti:focus { outline: none; border-color: var(--teal-border); }
+  .other-input {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text-hint);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .other-input input {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px dashed var(--border-mid);
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 12px;
+    background: var(--surface);
+    color: var(--text);
+  }
+  .other-input input:focus { outline: none; border-color: var(--teal-border); }
+
+  /* Matrix / table */
+  .matrix-wrap { overflow-x: auto; margin-top: 4px; }
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .matrix th {
+    font-weight: 500;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-hint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .matrix td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+  }
+  .matrix td:not(:first-child) { text-align: center; }
+  .matrix tr:last-child td { border-bottom: none; }
+  .matrix tr:hover td { background: var(--bg); }
+  input[type=checkbox], input[type=radio] {
+    width: 15px; height: 15px;
+    cursor: pointer;
+    accent-color: var(--teal);
+  }
+
+  /* Scenario grid */
+  .sg-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .sg-head {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .sg-head span {
+    padding: 7px 12px;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-hint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sg-head span:not(:first-child) { text-align: center; }
+  .sg-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sg-row:last-child { border-bottom: none; }
+  .sg-row:hover { background: var(--bg); }
+  .sg-cell {
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+  }
+  .sg-cell:not(:first-child) { justify-content: center; }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-note { font-size: 12px; color: var(--text-hint); font-family: var(--mono); }
+  .btn {
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border-mid);
+    background: var(--surface);
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--bg); }
+  .btn-primary {
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-teal {
+    background: var(--teal-bg);
+    color: var(--teal);
+    border-color: var(--teal-border);
+  }
+  .btn-teal:hover { background: #9FE1CB; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .shell { max-width: 100%; }
+    .section-body { display: block !important; }
+    .footer { display: none; }
+    .header { background: #1A1916 !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="header">
+    <div class="header-tag">Конфиденциально · Для внутреннего использования</div>
+    <h1>Цифровая платформа для адвокатского бюро</h1>
+    <p>Опросник · Республика Беларусь · 11 блоков · ~40 минут</p>
+  </div>
+
+  <div class="meta-card">
+    <div class="meta-field"><label>Название бюро</label><input type="text" id="m-name" placeholder="ООО «Бюро» / Адвокатское бюро «…»"></div>
+    <div class="meta-field"><label>Дата заполнения</label><input type="date" id="m-date"></div>
+    <div class="meta-field"><label>Контактное лицо</label><input type="text" id="m-contact" placeholder="ФИО"></div>
+    <div class="meta-field"><label>Должность</label><input type="text" id="m-role" placeholder="Управляющий партнёр / директор"></div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    <span class="progress-label" id="prog-label">Заполнено: 0 ответов</span>
+  </div>
+
+  <div id="sections-container"></div>
+
+  <div class="footer">
+    <span class="footer-note" id="footer-count">0 ответов заполнено</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="expandAll()">Раскрыть все</button>
+      <button class="btn btn-teal" onclick="exportTxt()">Скопировать итог</button>
+      <button class="btn btn-primary" onclick="window.print()">Печать / PDF</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id:'goals', num:1, title:'Цели и приоритеты', color:'#E1F5EE', tc:'#085041',
+    qs:[
+      {id:'goals_p1', label:'1.1. Приоритетные задачи 1 этапа', hint:'Выберите все нужные', multi:true, color:'teal',
+       opts:['Защищённый ИИ чат','Поиск по нормативно-правовым актам','Мониторинг и дайджест новостей','Поиск по патентам и товарным знакам','Анализ документов ИИ','База знаний бюро','Другое:'], hasOther:true},
+      {id:'goals_priority', label:'1.2. Что важнее на старте?', hint:'Один ответ', multi:false, color:'blue',
+       opts:['Скорость запуска','Безопасность и конфиденциальность','Функциональность','Бюджет','Масштабируемость']},
+      {id:'users_count', label:'1.3. Число пользователей на 1 этапе', multi:false, color:'teal',
+       opts:['1–5','6–10','11–20','20+']}
+    ]
+  },
+  {
+    id:'users', num:2, title:'Пользователи и доступ', color:'#EEEDFE', tc:'#3C3489',
+    qs:[
+      {id:'roles', label:'2.1. Роли в системе', hint:'Выберите все нужные', multi:true, color:'purple',
+       opts:['Управляющий партнёр','Адвокат','Юрист-помощник','Делопроизводитель','Бухгалтер','Системный администратор','Внешний консультант','Другое:'], hasOther:true},
+      {id:'access_levels', label:'2.2. Уровни доступа к данным', multi:true, color:'purple',
+       opts:['По роли сотрудника','По делу / клиенту','По направлению практики','Только партнёры видят всё','Единый доступ для всех']},
+      {id:'auth', label:'2.3. Обязательные меры аутентификации', law:'Закон РБ «Об информации…» № 455-З, ст. 17', multi:true, color:'purple',
+       opts:['Логин + пароль','Двухфакторная аутентификация','SSO / корпоративный аккаунт','Ограничение по IP']}
+    ]
+  },
+  {
+    id:'sources', num:3, title:'Источники и интеграции', color:'#E6F1FB', tc:'#0C447C',
+    qs:[
+      {id:'legal_db', label:'3.1. Нормативно-правовые базы и интеграции',
+       hint:'Доступные API-интеграции для подключения', multi:true, color:'blue',
+       opts:['Эталон-ONLINE (etalonline.by) — API по договору','КонсультантПлюс Беларусь — корпоративный API','api.legat.by — API для правовых документов (ключ после активации)','Pravo.Tech / Casebook — API для правовой информации v3.0','ЕАЭС — правовой портал','Уже есть лицензия — нужна интеграция','Другое:'], hasOther:true},
+      {id:'patent_db', label:'3.2. Патентные базы и базы товарных знаков',
+       hint:'Выберите все нужные', multi:true, color:'blue',
+       opts:['НЦИС РБ (ncip.by)','Евразийское патентное ведомство (ЕАПО)','Espacenet (EPO)','WIPO PATENTSCOPE','TMview (товарные знаки ЕС)','USPTO','Google Patents','Другое:'], hasOther:true},
+      {id:'news_src', label:'3.3. Источники новостей для мониторинга', multi:true, color:'blue',
+       opts:['pravo.by — официальные документы','Национальный правовой портал','Официальные сайты госорганов (МЮ, Минфин)','Отраслевые белорусские юридические издания','Telegram-каналы','Международные источники (WIPO, EPO)','Другое:'], hasOther:true},
+      {id:'existing_subs', label:'3.4. Есть ли уже оплаченные подписки или API-доступы?', multi:false, color:'blue',
+       opts:['Да','Нет'], hasOtherLabel:'Если да — укажите, какие:', hasOtherAlways:true},
+      {id:'delivery', label:'3.5. Каналы доставки результатов', multi:true, color:'blue',
+       opts:['Внутри платформы','Email','Telegram','PDF / Word','Excel','Другое:'], hasOther:true}
+    ]
+  },
+  {
+    id:'docs', num:4, title:'Работа с документами', color:'#FAEEDA', tc:'#633806',
+    qs:[
+      {id:'doc_types', label:'4.1. Типы документов в работе бюро', multi:true, color:'amber',
+       opts:['Договоры','Претензии и исковые заявления','Правовые заключения','Переписка с клиентами','Доверенности','Заявки на ИС (НЦИС)','Бухгалтерские документы','Внутренние шаблоны','Судебные решения','Другое:'], hasOther:true},
+      {id:'doc_ops', label:'4.2. Операции с документами', multi:true, color:'amber',
+       opts:['Поиск по содержимому','Суммаризация','Извлечение реквизитов и данных','Сравнение версий','Подготовка проектов документов','Классификация','Перевод','Другое:'], hasOther:true},
+      {id:'doc_storage', label:'4.3. Текущее место хранения документов', multi:true, color:'amber',
+       opts:['Локальные ПК','Внутренний сервер','Сетевой диск','Google Drive','OneDrive / SharePoint','Email','Бумажный архив']},
+      {id:'doc_retention', label:'4.4. Срок хранения документов в системе', multi:false, color:'amber',
+       opts:['Постоянно (архив дела)','5 лет','3 года','1 год','Только активные дела']}
+    ]
+  },
+  {
+    id:'datamap', num:5, title:'Карта данных', color:'#FAECE7', tc:'#712B13',
+    type:'matrix_data'
+  },
+  {
+    id:'scenarios', num:6, title:'Сценарии использования', color:'#E1F5EE', tc:'#085041',
+    type:'scenarios'
+  },
+  {
+    id:'matrix', num:7, title:'Матрица передачи данных', color:'#FAECE7', tc:'#712B13',
+    type:'matrix_transfer'
+  },
+  {
+    id:'ai_reqs', num:8, title:'Требования к ИИ', color:'#EEEDFE', tc:'#3C3489',
+    qs:[
+      {id:'ai_can', label:'8.1. Что ИИ должен уметь делать?', multi:true, color:'purple',
+       opts:['Отвечать по внутренней базе документов','Искать по внешним источникам','Делать краткие выводы и резюме','Готовить проекты документов','Объяснять нормы простым языком','Делать сравнительный анализ','Выявлять риски в документах','Оценивать новизну изобретений','Другое:'], hasOther:true},
+      {id:'ai_cannot', label:'8.2. Что ИИ делать категорически не должен?', multi:true, color:'coral',
+       opts:['Работать с неанонимизированными данными клиентов','Отправлять данные во внешние сервисы без согласования','Использовать непроверенные источники','Принимать решения по делам без адвоката','Другое:'], hasOther:true},
+      {id:'ai_refs', label:'8.3. Обязательны ли ссылки на источник в ответах ИИ?',
+       law:'Рекомендация: ссылки обязательны для правовых выводов — адвокатская ответственность',
+       multi:false, color:'purple',
+       opts:['Да, всегда','Только для правовых выводов и новостей','Не обязательно']},
+      {id:'novelty_need', label:'8.4. Нужна ли оценка новизны изобретений?',
+       law:'Закон РБ «О патентах…» № 160-З · НЦИС (ncip.by)', multi:false, color:'purple',
+       opts:['Да — ключевая функция','Да — вспомогательный инструмент','В перспективе','Нет']},
+      {id:'novelty_scope', label:'8.5. Что включает оценка новизны?', multi:true, color:'purple',
+       opts:['Поиск аналогов по описанию','Сравнение с ближайшими аналогами','Оценка изобретательского уровня','Анализ патентной чистоты','Итоговый отчёт для клиента','Другое:'], hasOther:true}
+    ]
+  },
+  {
+    id:'security', num:9, title:'Безопасность и инфраструктура', color:'#FAECE7', tc:'#712B13',
+    qs:[
+      {id:'security_must', label:'9.1. Обязательные меры безопасности',
+       law:'Закон РБ «О персональных данных» № 99-З · Постановление ОАЦ № 21',
+       multi:true, color:'coral',
+       opts:['Журнал действий (аудит-лог)','Резервное копирование','Маскирование / обезличивание','Запрет экспорта конфиденциальных данных','Согласование перед отправкой в ИИ','Другое:'], hasOther:true},
+      {id:'data_location', label:'9.2. Локализация данных',
+       law:'Ст. 8 Закона № 99-З: трансграничная передача ПД требует согласия субъекта',
+       multi:false, color:'coral',
+       opts:['Только серверы в РБ','Облако — страны ЕАЭС','Любое облако при соблюдении требований','Совместно разработанная система (свой вариант)','Railway (как обсуждалось)']},
+      {id:'local_llm', label:'9.3. Использование локальной LLM (без передачи данных наружу)',
+       multi:false, color:'coral',
+       opts:['Да — предпочтительно для конфиденциальных данных','Да — для всей платформы','Нет, облачный ИИ достаточен при шифровании','Нужна консультация']}
+    ]
+  },
+  {
+    id:'deploy', num:10, title:'Внедрение', color:'#E6F1FB', tc:'#0C447C',
+    qs:[
+      {id:'launch_format', label:'10.1. Формат запуска', multi:false, color:'blue',
+       opts:['Пилот 5–10 пользователей','Сразу на всю команду','Поэтапно по модулям']},
+      {id:'launch_time', label:'10.2. Желаемый срок запуска 1 этапа', multi:false, color:'blue',
+       opts:['До 1 месяца','1–2 месяца','2–4 месяца','Без жёсткого срока']}
+    ]
+  },
+  {
+    id:'summary', num:11, title:'Итог от клиента', color:'#E1F5EE', tc:'#085041',
+    qs:[
+      {id:'result_main', label:'11.1. Главный ожидаемый результат проекта', type:'textarea',
+       placeholder:'Что изменится в работе бюро через год после внедрения?'},
+      {id:'risk_main', label:'11.2. Главное ограничение или риск проекта', type:'textarea',
+       placeholder:'Например: адвокатская тайна, нежелание сотрудников, бюджет...'},
+      {id:'forbidden', label:'11.3. Что точно нельзя делать в рамках системы', type:'textarea',
+       placeholder:'Например: хранить данные клиентов в открытом облаке, передавать материалы дел в ИИ без обезличивания...'},
+      {id:'extra', label:'11.4. Дополнительные пожелания', type:'textarea',
+       placeholder:'Любые замечания, предпочтения, вопросы к разработчику...'}
+    ]
+  }
+];
+
+const DATA_ROWS = [
+  ['pd','Персональные данные клиентов'],
+  ['passport','Паспортные / идентификационные данные'],
+  ['cases','Данные о делах и клиентах'],
+  ['correspondence','Переписка с клиентами'],
+  ['opinions','Правовые заключения'],
+  ['financial','Финансовые и платёжные данные'],
+  ['patents_mat','Патентные материалы / заявки'],
+  ['trademarks','Товарные знаки / бренды / досье'],
+  ['hr','Кадровые данные сотрудников'],
+  ['accounting','Бухгалтерские документы']
+];
+
+const SCENARIO_ROWS = [
+  ['sc_chat_ai','Чат для ИИ анализа и подготовки документов'],
+  ['sc_chat_docs','Чат по внутренним документам'],
+  ['sc_news_search','Поиск по новостям'],
+  ['sc_news_digest','Дайджест новостей'],
+  ['sc_trends','Анализ тенденций и рисков'],
+  ['sc_patent','Поиск по патентам'],
+  ['sc_tm','Поиск по товарным знакам'],
+  ['sc_novelty','Проверка новизны / аналогов'],
+  ['sc_summary','Суммаризация документов'],
+  ['sc_extract','Извлечение данных из документов'],
+  ['sc_drafts','Подготовка проектов документов'],
+  ['sc_kb','База знаний бюро'],
+  ['sc_alerts','Алерты по изменениям законодательства']
+];
+
+const TRANSFER_ROWS = [
+  ['open','Новости и открытые источники'],
+  ['npa','Нормативно-правовые акты'],
+  ['court','Судебная практика (открытые источники)'],
+  ['patents_open','Патенты и ТЗ из открытых реестров'],
+  ['templates','Внутренние шаблоны без данных клиентов'],
+  ['contracts','Договоры клиентов'],
+  ['client_corr','Переписка с клиентами'],
+  ['opinions_conf','Правовые заключения по делам'],
+  ['personal','Документы с персональными данными'],
+  ['patent_app','Патентные заявки клиентов до подачи'],
+  ['accounting_docs','Бухгалтерские документы']
+];
+
+const answers = {};
+
+function updateProgress() {
+  const total = countAnswered();
+  document.getElementById('prog').style.width = Math.min(100, total * 2.2) + '%';
+  document.getElementById('prog-label').textContent = 'Заполнено: ' + total + ' ответов';
+  document.getElementById('footer-count').textContent = total + ' ответов заполнено';
+}
+
+function countAnswered() {
+  return Object.keys(answers).filter(k => {
+    const v = answers[k];
+    if (Array.isArray(v)) return v.length > 0;
+    if (typeof v === 'boolean') return v;
+    return v && String(v).trim() !== '';
+  }).length;
+}
+
+function buildSections() {
+  const cont = document.getElementById('sections-container');
+  SECTIONS.forEach((sec, si) => {
+    const div = document.createElement('div');
+    div.className = 'section';
+    div.id = 'sec-' + sec.id;
+
+    const hdr = document.createElement('div');
+    hdr.className = 'section-header';
+    hdr.innerHTML = `<div class="section-num" style="background:${sec.color};color:${sec.tc}">${sec.num}</div><div class="section-title">${sec.title}</div><span class="section-arrow" id="arr-${sec.id}">▶</span>`;
+    hdr.addEventListener('click', () => toggleSection(sec.id));
+
+    const body = document.createElement('div');
+    body.className = 'section-body';
+    body.id = 'body-' + sec.id;
+
+    if (sec.type === 'matrix_data') {
+      body.innerHTML = buildMatrixData();
+    } else if (sec.type === 'scenarios') {
+      body.innerHTML = buildScenarios();
+    } else if (sec.type === 'matrix_transfer') {
+      body.innerHTML = buildMatrixTransfer();
+    } else {
+      body.innerHTML = buildQuestions(sec.qs);
+    }
+
+    div.appendChild(hdr);
+    div.appendChild(body);
+    cont.appendChild(div);
+  });
+  bindEvents();
+}
+
+function buildQuestions(qs) {
+  return qs.map((q, qi) => {
+    let html = `<div class="q">`;
+    html += `<div class="q-num">${q.id.replace(/_/g,' ')}</div>`;
+    if (q.law) html += `<div class="law-badge">${q.law}</div><br>`;
+    html += `<div class="q-label">${q.label}</div>`;
+    if (q.hint) html += `<div class="q-hint">${q.hint}${q.multi ? '' : ''}</div>`;
+
+    if (q.type === 'textarea') {
+      html += `<textarea class="ta" data-k="${q.id}" placeholder="${q.placeholder||''}"></textarea>`;
+    } else {
+      html += `<div class="opts" data-k="${q.id}" data-multi="${q.multi?1:0}" data-color="${q.color}">`;
+      q.opts.forEach(opt => {
+        html += `<div class="opt">${opt}</div>`;
+      });
+      html += `</div>`;
+      if (q.hasOther) {
+        html += `<div class="other-input"><span>Другое:</span><input type="text" data-k="${q.id}_other" placeholder="укажите вариант..."></div>`;
+      }
+      if (q.hasOtherAlways) {
+        html += `<div style="margin-top:6px"><input class="ti" data-k="${q.id}_detail" placeholder="${q.hasOtherLabel||'Дополните...'}" style="font-size:12px"></div>`;
+      }
+    }
+    html += `</div>`;
+    if (qi < qs.length - 1) html += `<div class="divider"></div>`;
+    return html;
+  }).join('');
+}
+
+function buildMatrixData() {
+  let h = `<div class="q-label" style="margin-bottom:8px">5.1. Категории данных в работе бюро</div>`;
+  h += `<div class="law-badge">Закон РБ «О персональных данных» № 99-З от 07.05.2021</div>`;
+  h += `<div class="matrix-wrap"><table class="matrix"><tr><th style="min-width:170px">Категория</th><th>Есть</th><th>Часто используется</th><th>Высокая конфиденциальность</th></tr>`;
+  DATA_ROWS.forEach(([k, l]) => {
+    h += `<tr><td>${l}</td><td><input type="checkbox" data-k="dm_${k}_has"></td><td><input type="checkbox" data-k="dm_${k}_freq"></td><td><input type="checkbox" data-k="dm_${k}_conf"></td></tr>`;
+  });
+  h += `</table></div>`;
+  return h;
+}
+
+function buildScenarios() {
+  let h = `<div class="q-label" style="margin-bottom:10px">6.1. Какие сценарии нужны на 1 этапе?</div>`;
+  h += `<div class="sg-wrap"><div class="sg-head"><span>Сценарий</span><span>Нужен</span><span>Высокий приоритет</span></div>`;
+  SCENARIO_ROWS.forEach(([k, l]) => {
+    h += `<div class="sg-row"><div class="sg-cell">${l}</div><div class="sg-cell"><input type="checkbox" data-k="${k}_need"></div><div class="sg-cell"><input type="checkbox" data-k="${k}_prio"></div></div>`;
+  });
+  h += `</div>`;
+  h += `<div class="divider"></div><div class="q"><div class="q-label">6.2. Три сценария с наивысшим приоритетом</div><textarea class="ta" data-k="top3_scenarios" placeholder="1. …&#10;2. …&#10;3. …"></textarea></div>`;
+  return h;
+}
+
+function buildMatrixTransfer() {
+  let h = `<div class="q-label" style="margin-bottom:6px">7.1. Что разрешено передавать в ИИ-сервисы?</div>`;
+  h += `<div class="law-badge">Закон № 99-З · Закон «Об адвокатуре» № 113-З · Трансграничная передача — ст. 8 закона № 99-З</div>`;
+  h += `<div class="matrix-wrap"><table class="matrix"><tr><th style="min-width:190px">Категория данных</th><th>Можно</th><th>Нельзя</th><th>Только после обезличивания</th></tr>`;
+  TRANSFER_ROWS.forEach(([k, l]) => {
+    h += `<tr><td>${l}</td><td><input type="radio" name="mx_${k}" data-k="mx_${k}" value="yes"></td><td><input type="radio" name="mx_${k}" data-k="mx_${k}" value="no"></td><td><input type="radio" name="mx_${k}" data-k="mx_${k}" value="anon"></td></tr>`;
+  });
+  h += `</table></div>`;
+  return h;
+}
+
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id);
+  const arr = document.getElementById('arr-' + id);
+  const hdr = body.previousElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arr.classList.toggle('open', !isOpen);
+  hdr.classList.toggle('open', !isOpen);
+}
+
+function expandAll() {
+  SECTIONS.forEach(s => {
+    document.getElementById('body-' + s.id).classList.add('open');
+    document.getElementById('arr-' + s.id).classList.add('open');
+    document.getElementById('sec-' + s.id).querySelector('.section-header').classList.add('open');
+  });
+}
+
+function bindEvents() {
+  document.querySelectorAll('.opts').forEach(wrap => {
+    const k = wrap.dataset.k;
+    const multi = wrap.dataset.multi === '1';
+    const cls = 'sel-' + wrap.dataset.color;
+    wrap.querySelectorAll('.opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!answers[k]) answers[k] = [];
+        const t = btn.textContent.replace(/:$/, '').trim();
+        if (multi) {
+          const idx = answers[k].indexOf(t);
+          if (idx > -1) { answers[k].splice(idx, 1); btn.classList.remove(cls); }
+          else { answers[k].push(t); btn.classList.add(cls); }
+        } else {
+          answers[k] = [t];
+          wrap.querySelectorAll('.opt').forEach(b => b.classList.remove(cls));
+          btn.classList.add(cls);
+        }
+        updateProgress();
+      });
+    });
+  });
+
+  document.querySelectorAll('textarea[data-k]').forEach(el => {
+    el.addEventListener('input', () => { answers[el.dataset.k] = el.value; updateProgress(); });
+  });
+
+  document.querySelectorAll('input[type=text][data-k], input[type=date][data-k]').forEach(el => {
+    el.addEventListener('input', () => { answers[el.dataset.k] = el.value; updateProgress(); });
+  });
+
+  document.querySelectorAll('input[type=checkbox][data-k]').forEach(el => {
+    el.addEventListener('change', () => { answers[el.dataset.k] = el.checked; updateProgress(); });
+  });
+
+  document.querySelectorAll('input[type=radio][data-k]').forEach(el => {
+    el.addEventListener('change', () => { answers[el.dataset.k] = el.value; updateProgress(); });
+  });
+}
+
+function exportTxt() {
+  const name = document.getElementById('m-name').value || '—';
+  const date = document.getElementById('m-date').value || '—';
+  const contact = document.getElementById('m-contact').value || '—';
+  let txt = 'ОПРОСНИК: ЦИФРОВАЯ ПЛАТФОРМА ДЛЯ АДВОКАТСКОГО БЮРО\n';
+  txt += 'Республика Беларусь\n';
+  txt += '='.repeat(52) + '\n';
+  txt += `Бюро: ${name}\nДата: ${date}\nКонтакт: ${contact}\n\n`;
+
+  SECTIONS.forEach(sec => {
+    txt += `\n## ${sec.num}. ${sec.title}\n`;
+    Object.keys(answers).filter(k => {
+      const v = answers[k];
+      if (Array.isArray(v)) return v.length > 0;
+      if (typeof v === 'boolean') return v;
+      return v && String(v).trim();
+    }).forEach(k => {
+      const v = answers[k];
+      const val = Array.isArray(v) ? v.join(', ') : (v === true ? '✓' : v === false ? '' : v);
+      if (val) txt += `  ${k}: ${val}\n`;
+    });
+  });
+
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.querySelector('.btn-teal');
+    const orig = btn.textContent;
+    btn.textContent = 'Скопировано ✓';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+buildSections();
+</script>
+</body>
+</html>

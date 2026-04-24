@@ -1,0 +1,12 @@
+{
+  "name": "avoc-questionnaire",
+  "version": "1.0.0",
+  "description": "Опросник для адвокатского бюро",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
