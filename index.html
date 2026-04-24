@@ -3,27 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Опросник · Цифровая платформа для адвокатского бюро · РБ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Опросник · Цифровая платформа юридического бизнеса</title>
 <style>
   :root {
-    --bg:        #0A0A0A;
-    --bg2:       #050505;
-    --surface:   #111111;
-    --surface2:  #1A1A1A;
-    --border:    rgba(31,41,55,0.6);
-    --border2:   rgba(31,41,55,1);
-    --text:      #F5F5F5;
-    --text-muted:#A0A0A0;
-    --text-hint: #606060;
-    --gold:      #C9A962;
-    --gold-dim:  rgba(201,169,98,0.10);
-    --gold-mid:  rgba(201,169,98,0.16);
-    --gold-glow: 0 0 24px rgba(201,169,98,0.15);
-    --radius:    8px;
-    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --bg:         #f5f5f7;
+    --surface:    #ffffff;
+    --surface2:   #f5f5f7;
+    --border:     #d2d2d7;
+    --text:       #1d1d1f;
+    --text-2:     #424245;
+    --text-3:     #6e6e73;
+    --blue:       #0071e3;
+    --blue-hover: #0077ed;
+    --blue-dim:   rgba(0,113,227,0.08);
+    --radius-sm:  8px;
+    --radius:     12px;
+    --radius-lg:  18px;
+    --font:       -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow:     0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-lg:  0 12px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,304 +31,304 @@
     font-family: var(--font);
     background: var(--bg);
     color: var(--text);
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
     min-height: 100vh;
-    padding: 2rem 1rem 5rem;
+    padding: 3rem 1rem 6rem;
     -webkit-font-smoothing: antialiased;
   }
 
   .shell {
-    max-width: 760px;
+    max-width: 740px;
     margin: 0 auto;
   }
 
   /* ── Header ──────────────────────────────── */
   .header {
-    background: var(--surface);
-    border: 1px solid var(--gold-mid);
-    border-radius: var(--radius);
-    padding: 2rem 2.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,169,98,0.4), transparent);
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
   }
   .header-tag {
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--gold);
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
   }
   .header h1 {
-    font-size: 26px;
+    font-size: 40px;
     font-weight: 700;
-    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
     color: var(--text);
-    line-height: 1.25;
+    margin-bottom: 12px;
   }
   .header p {
-    font-size: 13px;
-    color: var(--text-hint);
-    letter-spacing: 0.02em;
+    font-size: 17px;
+    color: var(--text-3);
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 
   /* ── Progress ────────────────────────────── */
-  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-wrap { margin-bottom: 2rem; }
   .progress-bar {
-    height: 1px;
-    background: var(--border2);
-    border-radius: 1px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
     overflow: hidden;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .progress-fill {
     height: 100%;
-    background: var(--gold);
-    border-radius: 1px;
-    transition: width 0.4s ease;
+    background: var(--blue);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
     width: 0%;
-    box-shadow: 0 0 6px rgba(201,169,98,0.5);
   }
   .progress-label {
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--text-hint);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
 
   /* ── Section ─────────────────────────────── */
   .section {
-    background: rgba(17,17,17,0.88);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    margin-bottom: 6px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
     overflow: hidden;
-    transition: border-color 0.2s;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease;
   }
-  .section:has(.section-body.open) { border-color: var(--gold-mid); }
+  .section:has(.section-body.open) {
+    box-shadow: var(--shadow);
+  }
   .section-header {
-    padding: 14px 18px;
+    padding: 18px 22px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
     user-select: none;
     border-bottom: 1px solid transparent;
     transition: background 0.15s;
   }
-  .section-header:hover { background: var(--surface2); }
-  .section-header.open { border-bottom-color: var(--border2); }
+  .section-header:hover { background: rgba(0,0,0,0.015); }
+  .section-header.open { border-bottom-color: var(--border); }
   .section-num {
-    width: 26px; height: 26px;
-    border-radius: 4px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700;
-    background: var(--gold-dim);
-    color: var(--gold);
-    border: 1px solid var(--gold-mid);
+    font-size: 12px; font-weight: 600;
+    background: var(--blue-dim);
+    color: var(--blue);
     flex-shrink: 0;
-    font-family: var(--font);
-    letter-spacing: 0;
   }
   .section-title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     flex: 1;
     color: var(--text);
+    letter-spacing: -0.01em;
   }
   .section-arrow {
-    font-size: 8px;
-    color: var(--text-hint);
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-3);
+    font-size: 10px;
     transition: transform 0.2s ease;
+    background: var(--bg);
+    border-radius: 50%;
   }
-  .section-arrow.open { transform: rotate(90deg); color: var(--gold); }
-  .section-body { display: none; padding: 20px; }
+  .section-arrow.open { transform: rotate(90deg); color: var(--blue); background: var(--blue-dim); }
+  .section-body { display: none; padding: 22px; }
   .section-body.open { display: block; }
 
   /* ── Question ────────────────────────────── */
-  .q { margin-bottom: 1.25rem; }
+  .q { margin-bottom: 1.5rem; }
   .q:last-child { margin-bottom: 0; }
   .q-num {
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
     margin-bottom: 4px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   .q-label {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 8px;
-    line-height: 1.5;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
   .q-hint {
-    font-size: 11px;
-    color: var(--text-hint);
-    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-3);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
   }
   .law-badge {
     display: inline-flex;
     align-items: center;
-    font-size: 10px;
-    font-weight: 400;
-    background: var(--gold-dim);
-    color: var(--gold);
-    border: 1px solid var(--gold-mid);
-    border-radius: 4px;
-    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--blue-dim);
+    color: var(--blue);
+    border-radius: 20px;
+    padding: 3px 10px;
     margin-bottom: 10px;
-    letter-spacing: 0.04em;
   }
   .divider {
     height: 1px;
-    background: var(--border2);
-    margin: 1.25rem 0;
+    background: var(--border);
+    margin: 1.5rem 0;
+    opacity: 0.7;
   }
 
   /* ── Opts (pill buttons) ─────────────────── */
-  .opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
   .opt {
-    padding: 5px 13px;
-    border: 1px solid var(--border2);
+    padding: 7px 16px;
+    border: 1.5px solid var(--border);
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    color: var(--text-muted);
-    background: var(--bg2);
+    color: var(--text-2);
+    background: var(--surface);
     transition: all 0.15s ease;
-    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
   .opt:hover {
-    background: var(--surface2);
-    border-color: var(--gold);
-    color: var(--text);
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--blue-dim);
   }
 
-  /* Selected states — all unified to gold on dark theme */
   .sel-teal,
   .sel-blue,
   .sel-amber,
   .sel-coral,
   .sel-purple {
-    background: var(--gold-dim) !important;
-    border-color: var(--gold) !important;
-    color: var(--gold) !important;
-    box-shadow: 0 0 0 1px rgba(212,165,116,0.15) !important;
+    background: var(--blue) !important;
+    border-color: var(--blue) !important;
+    color: #fff !important;
   }
 
   /* ── Text inputs ─────────────────────────── */
   .ta, .ti {
     width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
     font-family: var(--font);
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text);
-    background: var(--bg2);
+    background: var(--surface);
     line-height: 1.5;
     transition: border-color 0.15s, box-shadow 0.15s;
+    letter-spacing: -0.01em;
   }
-  .ta { resize: vertical; min-height: 60px; }
-  .ta::placeholder, .ti::placeholder { color: var(--text-hint); }
+  .ta { resize: vertical; min-height: 80px; }
+  .ta::placeholder, .ti::placeholder { color: var(--text-3); }
   .ta:focus, .ti:focus {
     outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212,165,116,0.12);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
   }
   .other-input {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--text-hint);
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-3);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
   .other-input input {
     flex: 1;
-    padding: 5px 10px;
-    border: 1px dashed var(--border2);
-    border-radius: 6px;
+    padding: 7px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
     font-family: var(--font);
-    font-size: 12px;
-    background: var(--bg2);
+    font-size: 13px;
+    background: var(--surface);
     color: var(--text);
     transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .other-input input::placeholder { color: var(--text-hint); }
+  .other-input input::placeholder { color: var(--text-3); }
   .other-input input:focus {
     outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212,165,116,0.12);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
   }
 
   /* ── Matrix / table ──────────────────────── */
-  .matrix-wrap { overflow-x: auto; margin-top: 8px; border-radius: 6px; border: 1px solid var(--border); }
+  .matrix-wrap {
+    overflow-x: auto;
+    margin-top: 10px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+  }
   table.matrix {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 13px;
   }
   .matrix th {
     font-weight: 600;
-    font-size: 10px;
-    color: var(--text-hint);
+    font-size: 11px;
+    color: var(--text-3);
     text-transform: uppercase;
-    letter-spacing: 0.07em;
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
+    letter-spacing: 0.05em;
+    padding: 10px 14px;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--bg);
     text-align: left;
     white-space: nowrap;
   }
   .matrix td {
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border);
-    color: var(--text-muted);
+    color: var(--text-2);
     vertical-align: middle;
-    font-size: 12.5px;
   }
   .matrix td:not(:first-child) { text-align: center; }
   .matrix tr:last-child td { border-bottom: none; }
-  .matrix tr:hover td { background: var(--surface2); }
+  .matrix tr:hover td { background: rgba(0,113,227,0.03); }
   input[type=checkbox], input[type=radio] {
-    width: 15px; height: 15px;
+    width: 16px; height: 16px;
     cursor: pointer;
-    accent-color: var(--gold);
+    accent-color: var(--blue);
   }
 
   /* ── Scenario grid ───────────────────────── */
   .sg-wrap {
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
     overflow: hidden;
+    background: var(--surface);
   }
   .sg-head {
     display: grid;
     grid-template-columns: 1fr 90px 110px;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    border-bottom: 1.5px solid var(--border);
   }
   .sg-head span {
-    padding: 8px 12px;
-    font-size: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
     font-weight: 600;
-    color: var(--text-hint);
+    color: var(--text-3);
     text-transform: uppercase;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.05em;
   }
   .sg-head span:not(:first-child) { text-align: center; }
   .sg-row {
@@ -338,13 +337,14 @@
     border-bottom: 1px solid var(--border);
   }
   .sg-row:last-child { border-bottom: none; }
-  .sg-row:hover { background: var(--surface2); }
+  .sg-row:hover { background: rgba(0,113,227,0.03); }
   .sg-cell {
-    padding: 9px 12px;
-    font-size: 12.5px;
-    color: var(--text-muted);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-2);
     display: flex;
     align-items: center;
+    letter-spacing: -0.01em;
   }
   .sg-cell:not(:first-child) { justify-content: center; }
 
@@ -353,69 +353,78 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2rem;
-    padding: 1.5rem 0 0;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border);
     gap: 12px;
     flex-wrap: wrap;
   }
   .footer-note {
-    font-size: 12px;
-    color: var(--text-hint);
+    font-size: 13px;
+    color: var(--text-3);
     font-weight: 500;
+    letter-spacing: -0.01em;
   }
   .btn {
-    padding: 8px 18px;
-    border-radius: 4px;
+    padding: 9px 20px;
+    border-radius: 980px;
     font-family: var(--font);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--border2);
+    border: 1.5px solid var(--border);
     background: var(--surface);
-    color: var(--text-muted);
+    color: var(--text-2);
     transition: all 0.15s ease;
+    letter-spacing: -0.01em;
   }
   .btn:hover {
-    background: var(--surface2);
-    color: var(--text);
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--blue-dim);
   }
   .btn-gold {
-    background: var(--gold-dim);
-    color: var(--gold);
-    border-color: var(--gold-mid);
+    background: transparent;
+    color: var(--blue);
+    border-color: var(--blue);
   }
   .btn-gold:hover {
-    background: rgba(201,169,98,0.18);
-    color: var(--gold);
+    background: var(--blue-dim);
   }
   .btn-primary {
-    background: var(--gold);
-    color: #0A0A0A;
-    border-color: var(--gold);
-    font-weight: 700;
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+    font-weight: 600;
   }
   .btn-primary:hover {
-    background: #d4b870;
-    border-color: #d4b870;
+    background: var(--blue-hover);
+    border-color: var(--blue-hover);
   }
 
   /* ── Print ───────────────────────────────── */
   @media print {
-    body { background: #fff; color: #111; padding: 0; }
+    body { background: #fff; padding: 0; }
     .shell { max-width: 100%; }
     .section-body { display: block !important; }
     .footer { display: none; }
-    .header { background: #1A2332 !important; -webkit-print-color-adjust: exact; color-adjust: exact; }
-    .section, .meta-card { border-color: #ccc !important; }
-    .opt { border-color: #aaa !important; color: #333 !important; }
+    .section { box-shadow: none; border: 1px solid var(--border); }
   }
 
   /* ── Scrollbar ───────────────────────────── */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text-hint); }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #b0b0b5; }
+
+  /* ── Mobile ──────────────────────────────── */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 28px; }
+    .header p { font-size: 15px; }
+    body { padding: 2rem 0.75rem 5rem; }
+    .section-header { padding: 16px 18px; }
+    .section-body { padding: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -450,22 +459,22 @@ const SECTIONS = [
   {
     id:'goals', num:1, title:'Цели и приоритеты',
     qs:[
-      {id:'goals_p1', label:'1.1. Приоритетные задачи 1 этапа', hint:'Выберите все нужные', multi:true, color:'teal',
+      {id:'goals_p1', label:'1.1. Приоритетные задачи 1 этапа', hint:'Выберите все нужные', multi:true, color:'blue',
        opts:['Защищённый ИИ чат','Поиск по нормативно-правовым актам','Мониторинг и дайджест новостей','Поиск по патентам и товарным знакам','Анализ документов ИИ','База знаний бюро','Другое:'], hasOther:true},
       {id:'goals_priority', label:'1.2. Что важнее на старте?', hint:'Один ответ', multi:false, color:'blue',
        opts:['Скорость запуска','Безопасность и конфиденциальность','Функциональность','Бюджет','Масштабируемость']},
-      {id:'users_count', label:'1.3. Число пользователей на 1 этапе', multi:false, color:'teal',
+      {id:'users_count', label:'1.3. Число пользователей на 1 этапе', multi:false, color:'blue',
        opts:['1–5','6–10','11–20','20+']}
     ]
   },
   {
     id:'users', num:2, title:'Пользователи и доступ',
     qs:[
-      {id:'roles', label:'2.1. Роли в системе', hint:'Выберите все нужные', multi:true, color:'purple',
+      {id:'roles', label:'2.1. Роли в системе', hint:'Выберите все нужные', multi:true, color:'blue',
        opts:['Управляющий партнёр','Адвокат','Юрист-помощник','Делопроизводитель','Бухгалтер','Системный администратор','Внешний консультант','Другое:'], hasOther:true},
-      {id:'access_levels', label:'2.2. Уровни доступа к данным', multi:true, color:'purple',
+      {id:'access_levels', label:'2.2. Уровни доступа к данным', multi:true, color:'blue',
        opts:['По роли сотрудника','По делу / клиенту','По направлению практики','Только партнёры видят всё','Единый доступ для всех']},
-      {id:'auth', label:'2.3. Обязательные меры аутентификации', law:'Закон РБ «Об информации…» № 455-З, ст. 17', multi:true, color:'purple',
+      {id:'auth', label:'2.3. Обязательные меры аутентификации', law:'Закон РБ «Об информации…» № 455-З, ст. 17', multi:true, color:'blue',
        opts:['Логин + пароль','Двухфакторная аутентификация','SSO / корпоративный аккаунт','Ограничение по IP']}
     ]
   },
@@ -489,13 +498,13 @@ const SECTIONS = [
   {
     id:'docs', num:4, title:'Работа с документами',
     qs:[
-      {id:'doc_types', label:'4.1. Типы документов в работе бюро', multi:true, color:'amber',
+      {id:'doc_types', label:'4.1. Типы документов в работе бюро', multi:true, color:'blue',
        opts:['Договоры','Претензии и исковые заявления','Правовые заключения','Переписка с клиентами','Доверенности','Заявки на ИС (НЦИС)','Бухгалтерские документы','Внутренние шаблоны','Судебные решения','Другое:'], hasOther:true},
-      {id:'doc_ops', label:'4.2. Операции с документами', multi:true, color:'amber',
+      {id:'doc_ops', label:'4.2. Операции с документами', multi:true, color:'blue',
        opts:['Поиск по содержимому','Суммаризация','Извлечение реквизитов и данных','Сравнение версий','Подготовка проектов документов','Классификация','Перевод','Другое:'], hasOther:true},
-      {id:'doc_storage', label:'4.3. Текущее место хранения документов', multi:true, color:'amber',
+      {id:'doc_storage', label:'4.3. Текущее место хранения документов', multi:true, color:'blue',
        opts:['Локальные ПК','Внутренний сервер','Сетевой диск','Google Drive','OneDrive / SharePoint','Email','Бумажный архив']},
-      {id:'doc_retention', label:'4.4. Срок хранения документов в системе', multi:false, color:'amber',
+      {id:'doc_retention', label:'4.4. Срок хранения документов в системе', multi:false, color:'blue',
        opts:['Постоянно (архив дела)','5 лет','3 года','1 год','Только активные дела']}
     ]
   },
@@ -514,18 +523,18 @@ const SECTIONS = [
   {
     id:'ai_reqs', num:8, title:'Требования к ИИ',
     qs:[
-      {id:'ai_can', label:'8.1. Что ИИ должен уметь делать?', multi:true, color:'purple',
+      {id:'ai_can', label:'8.1. Что ИИ должен уметь делать?', multi:true, color:'blue',
        opts:['Отвечать по внутренней базе документов','Искать по внешним источникам','Делать краткие выводы и резюме','Готовить проекты документов','Объяснять нормы простым языком','Делать сравнительный анализ','Выявлять риски в документах','Оценивать новизну изобретений','Другое:'], hasOther:true},
       {id:'ai_cannot', label:'8.2. Что ИИ делать категорически не должен?', multi:true, color:'coral',
        opts:['Работать с неанонимизированными данными клиентов','Отправлять данные во внешние сервисы без согласования','Использовать непроверенные источники','Принимать решения по делам без адвоката','Другое:'], hasOther:true},
       {id:'ai_refs', label:'8.3. Обязательны ли ссылки на источник в ответах ИИ?',
        law:'Рекомендация: ссылки обязательны для правовых выводов — адвокатская ответственность',
-       multi:false, color:'purple',
+       multi:false, color:'blue',
        opts:['Да, всегда','Только для правовых выводов и новостей','Не обязательно']},
       {id:'novelty_need', label:'8.4. Нужна ли оценка новизны изобретений?',
-       law:'Закон РБ «О патентах…» № 160-З · НЦИС (ncip.by)', multi:false, color:'purple',
+       law:'Закон РБ «О патентах…» № 160-З · НЦИС (ncip.by)', multi:false, color:'blue',
        opts:['Да — ключевая функция','Да — вспомогательный инструмент','В перспективе','Нет']},
-      {id:'novelty_scope', label:'8.5. Что включает оценка новизны?', multi:true, color:'purple',
+      {id:'novelty_scope', label:'8.5. Что включает оценка новизны?', multi:true, color:'blue',
        opts:['Поиск аналогов по описанию','Сравнение с ближайшими аналогами','Оценка изобретательского уровня','Анализ патентной чистоты','Итоговый отчёт для клиента','Другое:'], hasOther:true}
     ]
   },
@@ -683,7 +692,7 @@ function buildQuestions(qs) {
         html += `<div class="other-input"><span>Другое:</span><input type="text" data-k="${q.id}_other" placeholder="укажите вариант..."></div>`;
       }
       if (q.hasOtherAlways) {
-        html += `<div style="margin-top:6px"><input class="ti" data-k="${q.id}_detail" placeholder="${q.hasOtherLabel||'Дополните...'}" style="font-size:12px"></div>`;
+        html += `<div style="margin-top:8px"><input class="ti" data-k="${q.id}_detail" placeholder="${q.hasOtherLabel||'Дополните...'}" style="font-size:13px"></div>`;
       }
     }
     html += `</div>`;
@@ -715,7 +724,7 @@ function buildScenarios() {
 }
 
 function buildMatrixTransfer() {
-  let h = `<div class="q-label" style="margin-bottom:6px">7.1. Что разрешено передавать в ИИ-сервисы?</div>`;
+  let h = `<div class="q-label" style="margin-bottom:8px">7.1. Что разрешено передавать в ИИ-сервисы?</div>`;
   h += `<div class="law-badge">Закон № 99-З · Закон «Об адвокатуре» № 113-З · Трансграничная передача — ст. 8 закона № 99-З</div>`;
   h += `<div class="matrix-wrap"><table class="matrix"><tr><th style="min-width:190px">Категория данных</th><th>Можно</th><th>Нельзя</th><th>Только после обезличивания</th></tr>`;
   TRANSFER_ROWS.forEach(([k, l]) => {
@@ -784,7 +793,7 @@ function bindEvents() {
 }
 
 function exportTxt() {
-  let txt = 'ОПРОСНИК: ЦИФРОВАЯ ПЛАТФОРМА ДЛЯ АДВОКАТСКОГО БЮРО\n';
+  let txt = 'ОПРОСНИК: ЦИФРОВАЯ ПЛАТФОРМА ЮРИДИЧЕСКОГО БИЗНЕСА\n';
   txt += 'Республика Беларусь\n';
   txt += '='.repeat(52) + '\n\n';
 
