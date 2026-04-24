@@ -9,20 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #0F1419;
-    --bg2:       #1A2332;
-    --surface:   #1E2D42;
-    --surface2:  #243347;
-    --border:    #334155;
-    --border2:   #3D4F66;
-    --text:      #E8EEF4;
-    --text-muted:#94A3B8;
-    --text-hint: #64748B;
-    --gold:      #D4A574;
-    --gold-dim:  rgba(212,165,116,0.12);
-    --gold-mid:  rgba(212,165,116,0.25);
-    --gold-glow: 0 0 24px rgba(212,165,116,0.18);
-    --blue-acc:  #1E3A5F;
+    --bg:        #0A0A0A;
+    --bg2:       #050505;
+    --surface:   #111111;
+    --surface2:  #1A1A1A;
+    --border:    rgba(31,41,55,0.6);
+    --border2:   rgba(31,41,55,1);
+    --text:      #F5F5F5;
+    --text-muted:#A0A0A0;
+    --text-hint: #606060;
+    --gold:      #C9A962;
+    --gold-dim:  rgba(201,169,98,0.10);
+    --gold-mid:  rgba(201,169,98,0.16);
+    --gold-glow: 0 0 24px rgba(201,169,98,0.15);
     --radius:    8px;
     --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
@@ -32,7 +31,6 @@
   body {
     font-family: var(--font);
     background: var(--bg);
-    background-image: linear-gradient(180deg, #0F1419 0%, #111B27 100%);
     color: var(--text);
     font-size: 14px;
     line-height: 1.6;
@@ -48,124 +46,77 @@
 
   /* ── Header ──────────────────────────────── */
   .header {
-    background: linear-gradient(135deg, #1A2332 0%, #243347 100%);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--gold-mid);
+    border-radius: var(--radius);
     padding: 2rem 2.5rem;
     margin-bottom: 1.5rem;
     position: relative;
     overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    right: -60px; top: -60px;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,165,116,0.08) 0%, transparent 70%);
   }
   .header::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212,165,116,0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(201,169,98,0.4), transparent);
   }
   .header-tag {
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 400;
     color: var(--gold);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-    opacity: 0.8;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
   }
   .header h1 {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
-    margin-bottom: 6px;
-    background: linear-gradient(135deg, #E8EEF4 0%, #D4A574 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin-bottom: 8px;
+    color: var(--text);
+    line-height: 1.25;
   }
   .header p {
     font-size: 13px;
     color: var(--text-hint);
-  }
-
-  /* ── Meta card ───────────────────────────── */
-  .meta-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .meta-field label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-hint);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 5px;
-  }
-  .meta-field input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--text);
-    background: var(--bg2);
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  .meta-field input::placeholder { color: var(--text-hint); }
-  .meta-field input:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212,165,116,0.15);
+    letter-spacing: 0.02em;
   }
 
   /* ── Progress ────────────────────────────── */
   .progress-wrap { margin-bottom: 1.5rem; }
   .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
+    height: 1px;
+    background: var(--border2);
+    border-radius: 1px;
     overflow: hidden;
     margin-bottom: 6px;
   }
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #D4A574, #E8C9A8);
-    border-radius: 2px;
+    background: var(--gold);
+    border-radius: 1px;
     transition: width 0.4s ease;
     width: 0%;
-    box-shadow: 0 0 8px rgba(212,165,116,0.5);
+    box-shadow: 0 0 6px rgba(201,169,98,0.5);
   }
   .progress-label {
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 400;
     color: var(--text-hint);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   /* ── Section ─────────────────────────────── */
   .section {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(17,17,17,0.88);
+    border: 1px solid var(--border2);
     border-radius: var(--radius);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     overflow: hidden;
     transition: border-color 0.2s;
   }
-  .section:has(.section-body.open) { border-color: var(--border2); }
+  .section:has(.section-body.open) { border-color: var(--gold-mid); }
   .section-header {
     padding: 14px 18px;
     display: flex;
@@ -177,16 +128,18 @@
     transition: background 0.15s;
   }
   .section-header:hover { background: var(--surface2); }
-  .section-header.open { border-bottom-color: var(--border); }
+  .section-header.open { border-bottom-color: var(--border2); }
   .section-num {
-    width: 28px; height: 28px;
-    border-radius: 6px;
+    width: 26px; height: 26px;
+    border-radius: 4px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700;
+    font-size: 11px; font-weight: 700;
     background: var(--gold-dim);
     color: var(--gold);
-    border: 1px solid rgba(212,165,116,0.2);
+    border: 1px solid var(--gold-mid);
     flex-shrink: 0;
+    font-family: var(--font);
+    letter-spacing: 0;
   }
   .section-title {
     font-size: 14px;
@@ -195,7 +148,7 @@
     color: var(--text);
   }
   .section-arrow {
-    font-size: 9px;
+    font-size: 8px;
     color: var(--text-hint);
     transition: transform 0.2s ease;
   }
@@ -208,10 +161,10 @@
   .q:last-child { margin-bottom: 0; }
   .q-num {
     font-size: 10px;
-    font-weight: 600;
-    color: var(--text-hint);
+    font-weight: 400;
+    color: var(--gold);
     margin-bottom: 4px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   .q-label {
@@ -225,26 +178,24 @@
     font-size: 11px;
     color: var(--text-hint);
     margin-bottom: 8px;
-    font-style: italic;
   }
   .law-badge {
     display: inline-flex;
     align-items: center;
     font-size: 10px;
-    font-weight: 500;
-    background: rgba(212,165,116,0.08);
+    font-weight: 400;
+    background: var(--gold-dim);
     color: var(--gold);
-    border: 1px solid rgba(212,165,116,0.25);
+    border: 1px solid var(--gold-mid);
     border-radius: 4px;
     padding: 3px 8px;
     margin-bottom: 10px;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.04em;
   }
   .divider {
     height: 1px;
-    background: var(--border);
+    background: var(--border2);
     margin: 1.25rem 0;
-    opacity: 0.6;
   }
 
   /* ── Opts (pill buttons) ─────────────────── */
@@ -415,7 +366,7 @@
   }
   .btn {
     padding: 8px 18px;
-    border-radius: var(--radius);
+    border-radius: 4px;
     font-family: var(--font);
     font-size: 13px;
     font-weight: 500;
@@ -428,28 +379,25 @@
   .btn:hover {
     background: var(--surface2);
     color: var(--text);
-    border-color: var(--border2);
   }
   .btn-gold {
     background: var(--gold-dim);
     color: var(--gold);
-    border-color: rgba(212,165,116,0.35);
+    border-color: var(--gold-mid);
   }
   .btn-gold:hover {
-    background: rgba(212,165,116,0.2);
+    background: rgba(201,169,98,0.18);
     color: var(--gold);
-    box-shadow: var(--gold-glow);
   }
   .btn-primary {
     background: var(--gold);
-    color: #0F1419;
+    color: #0A0A0A;
     border-color: var(--gold);
-    font-weight: 600;
+    font-weight: 700;
   }
   .btn-primary:hover {
-    background: #E8C9A8;
-    border-color: #E8C9A8;
-    box-shadow: var(--gold-glow);
+    background: #d4b870;
+    border-color: #d4b870;
   }
 
   /* ── Print ───────────────────────────────── */
@@ -477,13 +425,6 @@
     <div class="header-tag">Конфиденциально · Для внутреннего использования</div>
     <h1>Цифровая платформа для адвокатского бюро</h1>
     <p>Опросник · Республика Беларусь · 11 блоков · ~40 минут</p>
-  </div>
-
-  <div class="meta-card">
-    <div class="meta-field"><label>Название бюро</label><input type="text" id="m-name" placeholder="ООО «Бюро» / Адвокатское бюро «…»"></div>
-    <div class="meta-field"><label>Дата заполнения</label><input type="date" id="m-date"></div>
-    <div class="meta-field"><label>Контактное лицо</label><input type="text" id="m-contact" placeholder="ФИО"></div>
-    <div class="meta-field"><label>Должность</label><input type="text" id="m-role" placeholder="Управляющий партнёр / директор"></div>
   </div>
 
   <div class="progress-wrap">
@@ -843,13 +784,9 @@ function bindEvents() {
 }
 
 function exportTxt() {
-  const name = document.getElementById('m-name').value || '—';
-  const date = document.getElementById('m-date').value || '—';
-  const contact = document.getElementById('m-contact').value || '—';
   let txt = 'ОПРОСНИК: ЦИФРОВАЯ ПЛАТФОРМА ДЛЯ АДВОКАТСКОГО БЮРО\n';
   txt += 'Республика Беларусь\n';
-  txt += '='.repeat(52) + '\n';
-  txt += `Бюро: ${name}\nДата: ${date}\nКонтакт: ${contact}\n\n`;
+  txt += '='.repeat(52) + '\n\n';
 
   SECTIONS.forEach(sec => {
     txt += `\n## ${sec.num}. ${sec.title}\n`;
